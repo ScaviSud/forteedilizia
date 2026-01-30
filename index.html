@@ -356,6 +356,7 @@ footer {
   visibility: hidden;
   z-index: 9999;
   transform: translate3d(0, 0, 0);
+  transform-origin: center;
   transition:
     width 0.2s ease,
     height 0.2s ease,
@@ -375,6 +376,11 @@ footer {
 .cursor.active {
   opacity: 1;
 }
+
+.cursor.click {
+  transform: scale(0.7);
+}
+
 .map-container {
   width: 100%;
   height: 300px;
@@ -710,7 +716,10 @@ function hideCursor() {
 
 document.addEventListener('mousemove', e => {
   showCursor();
-  cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+  cursor.style.transform = `translate(
+    ${e.clientX - cursor.offsetWidth / 2}px,
+    ${e.clientY - cursor.offsetHeight / 2}px
+  )`;
 });
 
 // Fires when mouse leaves browser window
@@ -902,6 +911,17 @@ modal.addEventListener("click", e => {
   }
 });
 </script>
+
+<script>
+document.addEventListener('mousedown', () => {
+  cursor.classList.add('click');
+});
+
+document.addEventListener('mouseup', () => {
+  cursor.classList.remove('click');
+});
+</script>
+
 
 </body>
 </html>
