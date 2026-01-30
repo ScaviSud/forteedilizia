@@ -356,8 +356,19 @@ footer {
   visibility: hidden;
   z-index: 9999;
   transform: translate3d(0, 0, 0);
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    border-width 0.2s ease,
+    transform 0.1s linear;
 }
 
+/* Stato hover su elementi cliccabili */
+.cursor.clickable {
+  width: 12px;
+  height: 12px;
+  border-width: 2px;
+}
 
 
 }
@@ -485,6 +496,63 @@ footer {
     height: 1px;
   }
 }
+/* PROJECT MODAL */
+.project-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 40px;
+}
+
+.project-modal.active {
+  display: flex;
+}
+
+.project-modal-content {
+  max-width: 1100px;
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  padding: 50px;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.close-modal {
+  font-size: 2rem;
+  cursor: pointer;
+  float: right;
+  color: var(--accent);
+}
+
+.modal-gallery {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.modal-gallery img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+@media(max-width: 900px) {
+  .modal-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 500px) {
+  .modal-gallery {
+    grid-template-columns: 1fr;
+  }
+}
 
 </style>
 </head>
@@ -566,14 +634,24 @@ footer {
 </section>
 
 <section id="projects">
-<div class="section-label">GALLERY</div>
-<div class="section-title">Alcuni cantieri</div>
- <div class="gallery">
-    <div class="gallery-item"><img src="buen camin.jpeg"></div>
-    <div class="gallery-item"><img src="zal.jpeg"></div>
-    <div class="gallery-item"><img src="katsu.jpeg"></div>
+  <div class="section-label">GALLERY</div>
+  <div class="section-title">Alcuni cantieri</div>
+
+  <div class="gallery">
+    <div class="gallery-item project-card" data-project="0">
+      <img src="buen camin.jpeg">
+    </div>
+
+    <div class="gallery-item project-card" data-project="1">
+      <img src="zal.jpeg">
+    </div>
+
+    <div class="gallery-item project-card" data-project="2">
+      <img src="katsu.jpeg">
+    </div>
   </div>
 </section>
+
 
 <section id="contact">
   <div class="contact-box">
@@ -698,6 +776,19 @@ const statsObserver = new IntersectionObserver(entries => {
 
 values.forEach(v => statsObserver.observe(v));
 
+const clickableElements = document.querySelectorAll(
+  'a, button, .btn-primary, .btn-secondary, .gallery-item, .project-card'
+);
+
+clickableElements.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('clickable');
+  });
+
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('clickable');
+  });
+});
 </script>
 <script>
 const form = document.getElementById('contact-form');
@@ -730,6 +821,84 @@ form.addEventListener('submit', async (e) => {
     status.style.display = 'block';
     status.style.color = 'red';
     status.textContent = 'Errore di rete.';
+  }
+});
+</script>
+
+<div class="project-modal" id="projectModal">
+  <div class="project-modal-content">
+    <span class="close-modal">&times;</span>
+
+    <h3 id="modalTitle"></h3>
+    <p id="modalDescription"></p>
+
+    <div class="modal-gallery" id="modalGallery"></div>
+  </div>
+</div>
+
+<script>
+const projects = [
+  {
+    title: "Cantiere Residenziale – Altamura",
+    description: "Allestimento completo di cantiere residenziale con recinzioni, baraccamenti e ponteggi.",
+    images: [
+      "buen camin.jpeg",
+      "buen camin2.jpeg",
+      "buen camin3.jpeg"
+    ]
+  },
+  {
+    title: "Ristrutturazione edificio",
+    description: "Organizzazione logistica e sicurezza per lavori di ristrutturazione.",
+    images: [
+      "zal.jpeg",
+      "zal2.jpeg",
+      "zal3.jpeg"
+    ]
+  },
+  {
+    title: "Nuova costruzione",
+    description: "Predisposizione strutture provvisorie e impianti di cantiere.",
+    images: [
+      "katsu.jpeg",
+      "katsu2.jpeg",
+      "katsu3.jpeg"
+    ]
+  }
+];
+
+const modal = document.getElementById("projectModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalGallery = document.getElementById("modalGallery");
+const closeModal = document.querySelector(".close-modal");
+
+document.querySelectorAll(".project-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const index = card.dataset.project;
+    const project = projects[index];
+
+    modalTitle.textContent = project.title;
+    modalDescription.textContent = project.description;
+
+    modalGallery.innerHTML = "";
+    project.images.forEach(img => {
+      const image = document.createElement("img");
+      image.src = img;
+      modalGallery.appendChild(image);
+    });
+
+    modal.classList.add("active");
+  });
+});
+
+closeModal.addEventListener("click", () => {
+  modal.classList.remove("active");
+});
+
+modal.addEventListener("click", e => {
+  if (e.target === modal) {
+    modal.classList.remove("active");
   }
 });
 </script>
