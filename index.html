@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORTE EDILIZIA — Clean Green & White</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
+:root {
+  --bg-main: #ffffff;
+  --bg-soft: #f5fdf7;
+  --accent: #4caf50;
+  --cursor-green: #81c784;
+  --text-main: #0f2e1c;
+  --text-muted: #607d68;
+  --border-soft: rgba(76,175,80,0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Links */
+a { text-decoration: none; color: inherit; }
+
+/* NAVIGATION */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 24px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+nav .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+
+nav ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+nav li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  position: relative;
+}
+
+nav li::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+nav li:hover {
+  color: var(--text-main);
+}
+
+nav li:hover::after {
+  width: 100%;
+}
+
+/* HERO */
+.hero {
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  padding: 120px 80px 80px;
+  gap: 60px;
+  align-items: center;
+  background: var(--bg-soft);
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.hero h1.visible { opacity: 1; transform: translateY(0); }
+
+.hero h1 span { color: var(--accent); }
+
+.hero p {
+  margin-top: 20px;
+  max-width: 500px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out 0.2s;
+}
+
+.hero p.visible { opacity: 1; transform: translateY(0); }
+
+.hero-cta {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out 0.4s;
+}
+
+.hero-cta.visible { opacity: 1; transform: translateY(0); }
+
+.btn-primary {
+  padding: 14px 32px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px rgba(76,175,80,0.3);
+}
+
+.btn-secondary {
+  padding: 14px 32px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+/* HERO IMAGE */
+.hero-image {
+  position: relative;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out 0.6s;
+}
+.hero-image.visible { opacity: 1; transform: translateY(0); }
+.hero-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+
+/* SECTION BASE */
+section {
+  padding: 120px 80px;
+  background: var(--bg-main);
+}
+
+.section-label {
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.section-label.visible { opacity: 1; transform: translateY(0); }
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  margin-bottom: 30px;
+  color: var(--text-main);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out 0.1s;
+}
+
+.section-title.visible { opacity: 1; transform: translateY(0); }
+
+/* SERVICES */
+.services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.service {
+  background: var(--bg-soft);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  transition: transform 0.2s, box-shadow 0.2s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.service.visible { opacity: 1; transform: translateY(0); }
+.service:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(76,175,80,0.15);
+}
+.service h3 { margin-bottom: 15px; font-size: 1.3rem; }
+.service p { color: var(--text-muted); line-height: 1.6; }
+
+/* SPLIT IMAGE */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.split img {
+  width: 100%;
+  border-radius: 16px;
+  filter: brightness(1.05);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+.split img.visible { opacity: 1; transform: translateY(0); }
+
+/* PROJECTS */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 300px;
+  gap: 30px;
+}
+.project {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  grid-column: span 4;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+.project.visible { opacity: 1; transform: translateY(0); }
+.project.large { grid-column: span 8; grid-row: span 2; }
+.project img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.project:hover img { transform: scale(1.05); }
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.project:hover .project-overlay { opacity: 1; }
+
+/* CONTACT */
+.contact-box {
+  background: var(--bg-soft);
+  padding: 80px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.contact-box h3 {
+  font-size: 2rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--text-main);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+.contact-box h3.visible { opacity: 1; transform: translateY(0); }
+
+.contact-box p { margin-top: 10px; color: var(--text-muted); }
+.contact-box form { display: grid; gap: 15px; }
+.contact-box input,
+.contact-box textarea {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  padding: 14px;
+  border-radius: 6px;
+  color: var(--text-main);
+}
+
+/* MAP */
+#map {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+/* FOOTER */
+footer {
+  padding: 60px;
+  text-align: center;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-soft);
+}
+
+/* MEDIA */
+@media(max-width:1000px){
+  nav, section { padding: 60px 30px; }
+  .hero { grid-template-columns: 1fr; height: auto; padding-top: 160px; }
+  .services { grid-template-columns: 1fr; }
+  .split { grid-template-columns: 1fr; }
+  .contact-box { grid-template-columns: 1fr; padding: 40px; }
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--cursor-green);
+  border-radius: 50%;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 9999;
+  transform: translate3d(0, 0, 0);
+}
+
+
+
+}
+.cursor.active {
+  opacity: 1;
+}
+.map-container {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* GALLERY ORDINATA */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.gallery-item {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-soft);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+/* MOBILE */
+@media(max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 500px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* STATS BAND */
+.stats-band {
+  background: linear-gradient(
+    180deg,
+    #f3fbf6,
+    #ffffff
+  );
+  padding: 140px 80px;
+}
+
+.stats-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stats-header {
+  margin-bottom: 80px;
+}
+
+.stats-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.stat {
+  text-align: center;
+  min-width: 140px;
+}
+
+.stat .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat .label {
+  margin-top: 14px;
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.divider {
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(76,175,80,0.4),
+    transparent
+  );
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+  .stats-line {
+    flex-direction: column;
+  }
+
+  .divider {
+    width: 80px;
+    height: 1px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <div class="logo">FORTE EDILIZIA</div>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#services">Servizi</a></li>
+    <li><a href="#projects">Progetti</a></li>
+    <li><a href="#contact">Contatti</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div>
+    <h1>Allestiamo <span>cantieri</span><br> per lavori edili</h1>
+    <p>Ci occupiamo dell’allestimento di cantieri edili, seguendo le fasi iniziali del lavoro e predisponendo le strutture necessarie alle attività in cantiere.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">RICHIEDI INFORMAZIONI</a>
+      <a href="#projects" class="btn-secondary">VEDI GLI INTERVENTI</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="coolu.png">
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-label">SERVIZI</div>
+  <div class="section-title">Allestimento cantieri</div>
+  <div class="services">
+    <div class="service"> <h3>Installazione cantiere</h3> <p>Predisposizione dell’area di lavoro con recinzioni, accessi, segnaletica e spazi operativi.</p> </div>
+    <div class="service"> <h3>Sicurezza e logistica</h3> <p>Allestimento di dispositivi di sicurezza, viabilità interna, zone di carico e scarico materiali.</p> </div>
+    <div class="service"> <h3>Strutture provvisorie</h3> <p>Montaggio di baraccamenti, ponteggi, servizi igienici e impianti temporanei di cantiere.</p> </div>
+  </div>
+</section>
+
+<section class="stats-band">
+  <div class="stats-inner">
+
+    <div class="stats-header">
+      <div class="section-label">NUMERI</div>
+      <div class="section-title">Esperienza misurabile</div>
+    </div>
+
+    <div class="stats-line">
+      <div class="stat">
+        <span class="value" data-target="120">0</span>
+        <span class="label">Cantieri allestiti</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="stat">
+        <span class="value" data-target="15">0</span>
+        <span class="label">Anni di esperienza</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="stat">
+        <span class="value" data-target="98">0</span>
+        <span class="label">Sicurezza</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="stat">
+        <span class="value" data-target="30">0</span>
+        <span class="label">Giorni medi</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="projects">
+<div class="section-label">GALLERY</div>
+<div class="section-title">Alcuni cantieri</div>
+ <div class="gallery">
+    <div class="gallery-item"><img src="buen camin.jpeg"></div>
+    <div class="gallery-item"><img src="zal.jpeg"></div>
+    <div class="gallery-item"><img src="katsu.jpeg"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-box">
+    <div>
+      <h3>Richiedi un allestimento</h3>
+      <p>Contattaci per sopralluoghi, preventivi o informazioni sull’organizzazione del cantiere.</p>
+      <div id="map-container" style="width: 100%; height: 300px; border-radius: 12px; overflow: hidden; margin-top: 20px;">
+<iframe
+    src="https://www.google.com/maps?q=Via+Catullo,+10,+70022+Altamura+BA&output=embed"
+    width="100%"
+    height="100%"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+    </div>
+    <form id="contact-form" action="https://formspree.io/f/xnjvawqz" method="POST">
+    <input type="hidden" name="_format" value="html">
+      <p><strong>Indirizzo:</strong> Via Catullo, 10, Altamura(BA)</p>
+      <p><strong>Telefono:</strong>389 5556903, 329 6216885</p>
+      <p><strong>Email:</strong>info@forteedilizia.com</p>
+      <input name="nome" placeholder="Nome e cognome" />
+      <input name="email" name="email" placeholder="Indirizzo email" />
+      <textarea rows="4" name="messaggio" placeholder="Testo"></textarea>
+      <button class="btn-primary">INVIA RICHIESTA</button>
+    </form>
+<p id="form-status" style="display:none; margin-top:15px; color:green;">
+  Messaggio inviato correttamente
+</p>
+  </div>
+</section>
+
+<footer>
+  © 2025 FORTE EDILIZIA - Via Catullo, 10 Altamura(BA)
+</footer>
+
+<script>
+// Cursor
+
+const cursor = document.getElementById('cursor');
+let cursorVisible = false;
+
+function showCursor() {
+  if (!cursorVisible) {
+    cursor.style.visibility = 'visible';
+    cursorVisible = true;
+  }
+}
+
+function hideCursor() {
+  cursor.style.visibility = 'hidden';
+  cursorVisible = false;
+}
+
+document.addEventListener('mousemove', e => {
+  showCursor();
+  cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+});
+
+// Fires when mouse leaves browser window
+document.addEventListener('mouseout', e => {
+  if (!e.relatedTarget && !e.toElement) {
+    hideCursor();
+  }
+});
+
+// Fires when tab loses focus
+window.addEventListener('blur', hideCursor);
+
+
+// Animations on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.hero h1, .hero p, .hero-cta, .hero-image, .section-label, .section-title, .service, .split img, .project, .contact-box h3').forEach(el => {
+  observer.observe(el);
+});
+
+const mapContainer = document.getElementById('map-container');
+
+mapContainer.addEventListener('mouseenter', () => {
+  cursor.style.visibility = 'hidden';
+  cursorVisible = false;
+});
+
+mapContainer.addEventListener('mouseleave', () => {
+  cursor.style.visibility = 'hidden';
+  cursorVisible = false;
+});
+
+const values = document.querySelectorAll('.stat .value');
+
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = +el.dataset.target;
+      let current = 0;
+      const step = target / 60;
+
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          el.textContent = target + (target === 120 ? '+' : target === 98 ? '%' : '');
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current);
+        }
+      }, 25);
+
+      statsObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.6 });
+
+values.forEach(v => statsObserver.observe(v));
+
+</script>
+<script>
+const form = document.getElementById('contact-form');
+const status = document.getElementById('form-status');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      form.reset();
+      status.style.display = 'block';
+      status.textContent = 'Messaggio inviato con successo.';
+    } else {
+      status.style.display = 'block';
+      status.style.color = 'red';
+      status.textContent = 'Errore nell’invio. Riprova.';
+    }
+  } catch (error) {
+    status.style.display = 'block';
+    status.style.color = 'red';
+    status.textContent = 'Errore di rete.';
+  }
+});
+</script>
+
+</body>
+</html>
