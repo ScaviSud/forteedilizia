@@ -1023,8 +1023,16 @@ function setVH() {
 setVH();
 window.addEventListener('resize', setVH);
 </script>
-
-
+<script>
+window.addEventListener('load', () => {
+  values.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      statsObserver.observe(el);
+    }
+  });
+});
+</script>
 
 </body>
 </html>
