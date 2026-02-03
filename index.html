@@ -10,6 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  max-width: 100vw;
+}
 
 *,
 *::before,
@@ -21,10 +30,11 @@
   --bg-main: #ffffff;
   --bg-soft: #f5fdf7;
   --accent: #4caf50;
-  --cursor-green: #81c784;
+  --cursor-yellow: green;
   --text-main: #0f2e1c;
   --text-muted: #607d68;
   --border-soft: rgba(76,175,80,0.2);
+  --nav-height: 88px;
 }
 
 * {
@@ -50,6 +60,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 100;
+  height: 88px;
   padding: 24px 80px;
   display: flex;
   justify-content: space-between;
@@ -102,6 +113,7 @@ nav li:hover::after {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   padding: 120px 80px 80px;
+  padding-top: calc(var(--nav-height) + 40px);
   gap: 60px;
   align-items: center;
   background: var(--bg-soft);
@@ -337,7 +349,7 @@ footer {
 /* MEDIA */
 @media(max-width:1000px){
   nav, section { padding: 60px 30px; }
-  .hero { grid-template-columns: 1fr; height: auto; padding-top: 160px; }
+  .hero { grid-template-columns: 1fr; height: auto; padding-top: calc(var(--nav-height) + 60px); }
   .services { grid-template-columns: 1fr; }
   .split { grid-template-columns: 1fr; }
   .contact-box { grid-template-columns: 1fr; padding: 40px; }
@@ -350,7 +362,7 @@ footer {
   left: 0;
   width: 24px;
   height: 24px;
-  border: 2px solid var(--cursor-green);
+  border: 2px solid var(--cursor-yellow);
   border-radius: 50%;
   pointer-events: none;
   visibility: hidden;
@@ -388,10 +400,36 @@ footer {
   overflow: hidden;
 }
 
-.map-container iframe {
+.map-static {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-soft);
+}
+
+.map-static img {
   width: 100%;
   height: 100%;
-  border: 0;
+  object-fit: cover;
+}
+
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.map-static:hover .map-overlay {
+  opacity: 1;
 }
 
 /* GALLERY ORDINATA */
@@ -560,6 +598,34 @@ footer {
   }
 }
 
+/* Nasconde cursore e highlight su dispositivi touch */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Nasconde cursore custom su touch */
+.touch-device .cursor {
+  display: none !important;
+}
+
+/* Ripristina cursore normale */
+.touch-device * {
+  cursor: auto !important;
+}
+
+nav,
+.hero,
+section,
+.stats-band,
+footer {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 </style>
 </head>
 <body>
@@ -665,15 +731,17 @@ footer {
       <h3>Richiedi un allestimento</h3>
       <p>Contattaci per sopralluoghi, preventivi o informazioni sull’organizzazione del cantiere.</p>
       <div id="map-container" style="width: 100%; height: 300px; border-radius: 12px; overflow: hidden; margin-top: 20px;">
-<iframe
-    src="https://www.google.com/maps?q=Via+Catullo,+10,+70022+Altamura+BA&output=embed"
-    width="100%"
-    height="100%"
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
+<div class="map-static">
+  <a 
+    href="https://www.google.com/maps?q=Via+Catullo,+10,+70022+Altamura+BA"
+    target="_blank"
+    aria-label="Apri la mappa su Google Maps"
+  >
+    <img src="map-altamura.jpg" alt="Mappa sede Forte Edilizia">
+    <span class="map-overlay">Apri su Google Maps</span>
+  </a>
+</div>
+
 </div>
     </div>
     <form id="contact-form" action="https://formspree.io/f/xnjvawqz" method="POST">
@@ -697,8 +765,16 @@ footer {
 </footer>
 
 <script>
+const isTouchDevice =
+  'ontouchstart' in window ||
+  navigator.maxTouchPoints > 0;
+
+if (isTouchDevice) {
+  document.documentElement.classList.add('touch-device');
+}
 // Cursor
 
+if (!document.documentElement.classList.contains('touch-device')) {
 const cursor = document.getElementById('cursor');
 let cursorVisible = false;
 
@@ -798,6 +874,7 @@ clickableElements.forEach(el => {
     cursor.classList.remove('clickable');
   });
 });
+}
 </script>
 <script>
 const form = document.getElementById('contact-form');
