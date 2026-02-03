@@ -356,6 +356,12 @@ footer {
   nav {
     min-height: 64px;
     padding: 16px 20px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    }
+    nav ul {
+    justify-content: center;
     }
   .hero { grid-template-columns: 1fr; height: auto; padding-top: calc(var(--nav-height) + 60px); }
   .services { grid-template-columns: 1fr; }
@@ -1031,6 +1037,36 @@ window.addEventListener('load', () => {
       statsObserver.observe(el);
     }
   });
+});
+</script>
+
+<script>
+window.addEventListener('load', () => {
+  const revealNow = document.querySelectorAll(
+    '.hero h1, .hero p, .hero-cta, .hero-image, ' +
+    '.section-label, .section-title'
+  );
+
+  revealNow.forEach(el => {
+    el.classList.add('visible');
+  });
+});
+</script>
+
+<script>
+window.addEventListener('load', () => {
+  if (window.innerWidth <= 900) {
+    document.querySelectorAll(
+      '.hero h1, .hero p, .hero-cta, .hero-image,' +
+      '#services .section-label,' +
+      '#services .section-title,' +
+      '#services .service'
+    ).forEach(el => {
+      el.classList.add('visible');
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }
 });
 </script>
 
