@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>FORTE EDILIZIA — Clean Green & White</title>
 
 <!-- Fonts -->
@@ -45,6 +45,7 @@ html, body {
 }
 
 body {
+  padding-top: var(--nav-height);
   background: var(--bg-main);
   color: var(--text-main);
   overflow-x: hidden;
@@ -109,7 +110,7 @@ nav li:hover::after {
 
 /* HERO */
 .hero {
-  min-height: 90vh;
+  min-height: calc(var(--vh, 1vh) * 90);
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   padding: 120px 80px 80px;
@@ -854,7 +855,9 @@ const statsObserver = new IntersectionObserver(entries => {
       const timer = setInterval(() => {
         current += step;
         if (current >= target) {
-          el.textContent = target + (target === 120 ? '+' : target === 98 ? '%' : '');
+          el.textContent =
+            target +
+            (target === 120 ? '+' : target === 98 ? '%' : '');
           clearInterval(timer);
         } else {
           el.textContent = Math.floor(current);
@@ -864,7 +867,10 @@ const statsObserver = new IntersectionObserver(entries => {
       statsObserver.unobserve(el);
     }
   });
-}, { threshold: 0.6 });
+}, {
+  threshold: 0.2,        // 👈 molto più affidabile su mobile
+  rootMargin: "0px 0px -80px 0px" // 👈 parte prima
+});
 
 values.forEach(v => statsObserver.observe(v));
 
@@ -1005,6 +1011,19 @@ document.addEventListener('mouseup', () => {
   cursor.classList.remove('click');
 });
 </script>
+
+<script>
+function setVH() {
+  document.documentElement.style.setProperty(
+    '--vh',
+    `${window.innerHeight * 0.01}px`
+  );
+}
+
+setVH();
+window.addEventListener('resize', setVH);
+</script>
+
 
 
 </body>
