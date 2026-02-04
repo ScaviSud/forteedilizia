@@ -384,10 +384,16 @@ footer {
     justify-content: center;
   }
 
-  .hero-image {
+   .hero-image {
     width: 100%;
-    max-width: 420px;
-    margin: 40px auto 0;
+    max-width: none;
+    margin: 40px 0 0;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
   .services { grid-template-columns: 1fr; }
