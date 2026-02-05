@@ -369,6 +369,13 @@ footer {
     align-items: center;
     text-align: center;
   }
+.hero-title {
+    text-align: center;
+  }
+
+  .hero-title br {
+    display: none;
+  }
 
   .hero > div {
     width: 100%;
@@ -691,7 +698,7 @@ footer {
 
 <section class="hero">
   <div>
-    <h1>Allestiamo <span>cantieri</span><br> per lavori edili</h1>
+    <h1 class="hero-title">Allestiamo <span>cantieri</span><br> per lavori edili</h1>
     <p>Ci occupiamo dell’allestimento di cantieri edili, seguendo le fasi iniziali del lavoro e predisponendo le strutture necessarie alle attività in cantiere.</p>
     <div class="hero-cta">
       <a href="#contact" class="btn-primary">RICHIEDI INFORMAZIONI</a>
@@ -856,7 +863,7 @@ document.addEventListener('mouseout', e => {
 window.addEventListener('blur', hideCursor);
 
 
-// Animations on scroll
+// Animations on scroll----------------------------------------------
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
@@ -868,6 +875,7 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.hero h1, .hero p, .hero-cta, .hero-image, .section-label, .section-title, .service, .split img, .project, .contact-box h3').forEach(el => {
   observer.observe(el);
 });
+//end-----------------------------------------
 
 const mapContainer = document.getElementById('map-container');
 
@@ -880,6 +888,7 @@ mapContainer.addEventListener('mouseleave', () => {
   cursor.style.visibility = 'hidden';
   cursorVisible = false;
 });
+//values----------------------------
 
 const values = document.querySelectorAll('.stat .value');
 
@@ -907,12 +916,12 @@ const statsObserver = new IntersectionObserver(entries => {
     }
   });
 }, {
-  threshold: 0.2,        // 👈 molto più affidabile su mobile
-  rootMargin: "0px 0px -80px 0px" // 👈 parte prima
+  threshold: 0.2,
+  rootMargin: "0px 0px -80px 0px"
 });
 
 values.forEach(v => statsObserver.observe(v));
-
+//end------------------------------------------------
 const clickableElements = document.querySelectorAll(
   'a, button, .btn-primary, .btn-secondary, .gallery-item, .project-card'
 );
@@ -1102,10 +1111,45 @@ window.addEventListener('load', () => {
   }
 });
 </script>
+<script>
+window.addEventListener('load', () => {
+  const statsSection = document.querySelector('.stats-band');
+  const values = document.querySelectorAll('.stat .value');
+
+  if (!statsSection) return;
+
+  const rect = statsSection.getBoundingClientRect();
+
+  // Se la stats band è già visibile al load (tipico mobile)
+  if (rect.top < window.innerHeight) {
+    values.forEach(el => {
+      if (el.classList.contains('done')) return;
+
+      el.classList.add('done');
+
+      const target = +el.dataset.target;
+      let current = 0;
+      const step = target / 60;
+
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          el.textContent =
+            target +
+            (target === 120 ? '+' : target === 98 ? '%' : '');
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current);
+        }
+      }, 25);
+    });
+  }
+});
+</script>
+
 
 </body>
 </html>
-
 
 
 
