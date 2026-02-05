@@ -370,12 +370,12 @@ footer {
     text-align: center;
   }
 .hero-title {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
   }
 
-  .hero-title br {
-    display: none;
-  }
 
   .hero > div {
     width: 100%;
@@ -1111,22 +1111,23 @@ window.addEventListener('load', () => {
   }
 });
 </script>
+
 <script>
-window.addEventListener('load', () => {
-  const statsSection = document.querySelector('.stats-band');
-  const values = document.querySelectorAll('.stat .value');
+let statsStarted = false;
 
-  if (!statsSection) return;
+function startStatsIfVisible() {
+  if (statsStarted) return;
 
-  const rect = statsSection.getBoundingClientRect();
+  const section = document.querySelector('.stats-band');
+  if (!section) return;
 
-  // Se la stats band è già visibile al load (tipico mobile)
-  if (rect.top < window.innerHeight) {
-    values.forEach(el => {
-      if (el.classList.contains('done')) return;
+  const rect = section.getBoundingClientRect();
 
-      el.classList.add('done');
+  // quando ARRIVA davvero nella viewport
+  if (rect.top < window.innerHeight * 0.75) {
+    statsStarted = true;
 
+    document.querySelectorAll('.stat .value').forEach(el => {
       const target = +el.dataset.target;
       let current = 0;
       const step = target / 60;
@@ -1143,10 +1144,17 @@ window.addEventListener('load', () => {
         }
       }, 25);
     });
-  }
-});
-</script>
 
+    window.removeEventListener('scroll', startStatsIfVisible);
+  }
+}
+
+// trigger reale
+window.addEventListener('scroll', startStatsIfVisible);
+
+// fallback: nel caso raro sia già visibile
+window.addEventListener('load', startStatsIfVisible);
+</script>
 
 </body>
 </html>
