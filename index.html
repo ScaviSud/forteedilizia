@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="description" content="Impresa edile pugliese di allestimento cantieri anni di esperienza, area di attività, categorie">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>FORTE EDILIZIA — Clean Green & White</title>
@@ -554,6 +555,69 @@ footer {
   min-width: 140px;
 }
 
+/* SOA animation */
+.soa-holder {
+  height:60px;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--accent);
+}
+
+.soa-letter {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.soa-letter.visible {
+  opacity: 1;
+  transform: translateY(0);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* AREA animation */
+
+.area-holder {
+display: flex;
+height:60px;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.area-line {
+  width: 0;
+  height: 3px;
+  background: var(--accent);
+  transition: width 1.2s ease;
+}
+
+.area-holder.active .area-line {
+  width: 120px;
+}
+
+.north,
+.south {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease;
+}
+
+.area-holder.active .north,
+.area-holder.active .south {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .stat .value {
   font-family: 'Playfair Display', serif;
   font-size: 4.5rem;
@@ -679,6 +743,7 @@ footer {
   overflow-x: hidden;
 }
 
+
 </style>
 </head>
 <body>
@@ -697,8 +762,8 @@ footer {
 
 <section class="hero">
   <div>
-    <h1 class="hero-title">Allestiamo <span>cantieri</span> per lavori edili</h1>
-    <p>Ci occupiamo dell’allestimento di cantieri edili, seguendo le fasi iniziali del lavoro e predisponendo le strutture necessarie alle attività in cantiere.</p>
+    <h1 class="hero-title">Soluzioni <span>concrete</span> per le infrastrutture</h1>
+    <p>Da anni operiamo nel settore dell'edilizia garantendo professionalità e qualità esecutiva.</p>
     <div class="hero-cta">
       <a href="#contact" class="btn-primary">RICHIEDI INFORMAZIONI</a>
       <a href="#projects" class="btn-secondary">VEDI GLI INTERVENTI</a>
@@ -711,11 +776,19 @@ footer {
 
 <section id="services">
   <div class="section-label">SERVIZI</div>
-  <div class="section-title">Allestimento cantieri</div>
+  <div class="section-title">Alcuni servizi</div>
   <div class="services">
-    <div class="service"> <h3>Installazione cantiere</h3> <p>Predisposizione dell’area di lavoro con recinzioni, accessi, segnaletica e spazi operativi.</p> </div>
-    <div class="service"> <h3>Sicurezza e logistica</h3> <p>Allestimento di dispositivi di sicurezza, viabilità interna, zone di carico e scarico materiali.</p> </div>
-    <div class="service"> <h3>Strutture provvisorie</h3> <p>Montaggio di baraccamenti, ponteggi, servizi igienici e impianti temporanei di cantiere.</p> </div>
+    <div class="service"> <h3>Lavori stradali e ripristini</h3> <p>- Asfaltatura e rifacimento del manto stradale <br> -sistemazione di marciapiedi e cordoli <br> -realizzazione di caditoie e sistemi di drenaggio</p> </div>
+    <div class="service"> <h3>scavi e opere per sottoservizi</h3> <p>-Scavi a sezione obbligata per posa tubazioni <br>
+
+-Preparazione del letto di posa e rinterri <br>
+
+-Posa di chiusini, griglie e pozzetti</p> </div>
+    <div class="service"> <h3>Reti idriche e fognarie</h3> <p>-Scavi per posa di tubazioni acqua e fognatura <br>
+
+-Realizzazione di pozzetti e camerette <br>
+
+-Allacciamenti alle utenze</p> </div>
   </div>
 </section>
 
@@ -728,32 +801,42 @@ footer {
     </div>
 
     <div class="stats-line">
-      <div class="stat">
-        <span class="value" data-target="120">0</span>
-        <span class="label">Cantieri allestiti</span>
-      </div>
 
-      <div class="divider"></div>
+  <!-- ANNI ESPERIENZA -->
+  <div class="stat">
+    <span class="value" data-target="28">0</span>
+    <span class="label">Anni di esperienza</span>
+  </div>
 
-      <div class="stat">
-        <span class="value" data-target="15">0</span>
-        <span class="label">Anni di esperienza</span>
-      </div>
+  <div class="divider"></div>
 
-      <div class="divider"></div>
-
-      <div class="stat">
-        <span class="value" data-target="98">0</span>
-        <span class="label">Sicurezza</span>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="stat">
-        <span class="value" data-target="30">0</span>
-        <span class="label">Giorni medi</span>
-      </div>
+  <!-- CATEGORIE SOA -->
+  <div class="stat soa-stat">
+    <div class="soa-holder">
+      <span class="soa-letter">O</span>
+      <span class="soa-letter">G</span>
+      <span class="soa-letter">1</span>
+      <span class="soa-letter">&nbsp;</span>
+      <span class="soa-letter">O</span>
+      <span class="soa-letter">G</span>
+      <span class="soa-letter">3</span>
     </div>
+    <span class="label">Categorie SOA</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- AREA ATTIVITÀ -->
+  <div class="stat area-stat">
+    <div class="area-holder">
+      <span class="north">Nord</span>
+      <div class="area-line"></div>
+      <span class="south">Sud</span>
+    </div>
+    <span class="label">Area di attività</span>
+  </div>
+
+</div>
 
   </div>
 </section>
@@ -764,15 +847,15 @@ footer {
 
   <div class="gallery">
     <div class="gallery-item project-card" data-project="0">
-      <img src="buen camin.jpeg">
+      <img src="buen camin2.jpg">
     </div>
 
     <div class="gallery-item project-card" data-project="1">
-      <img src="zal.jpeg">
+      <img src="parco.jpg">
     </div>
 
     <div class="gallery-item project-card" data-project="2">
-      <img src="katsu.jpeg">
+      <img src="buen camin.jpeg">
     </div>
   </div>
 </section>
@@ -866,13 +949,26 @@ window.addEventListener('blur', hideCursor);
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
+
+  entry.target.classList.add('visible');
+
+  if(entry.target.classList.contains('area-holder')){
+    entry.target.classList.add('active');
+  }
+
+}
   });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.hero h1, .hero p, .hero-cta, .hero-image, .section-label, .section-title, .service, .split img, .project, .contact-box h3').forEach(el => {
+document.querySelectorAll('.hero h1, .hero p, .hero-cta, .hero-image, .section-label, .section-title, .service, .split img, .project, .contact-box h3, .soa-letter, .area-holder').forEach(el => {
   observer.observe(el);
+});
+const soaLetters = document.querySelectorAll('.soa-letter');
+
+soaLetters.forEach((letter, i) => {
+  setTimeout(() => {
+    letter.classList.add('visible');
+  }, i * 120);
 });
 //end-----------------------------------------
 
@@ -985,30 +1081,30 @@ form.addEventListener('submit', async (e) => {
 <script>
 const projects = [
   {
-    title: "Cantiere Residenziale – Altamura",
-    description: "Allestimento completo di cantiere residenziale con recinzioni, baraccamenti e ponteggi.",
+    title: "Centro storico di Altamura",
+    description: "Vari lavori di sistemazione dei sottoservizi del corso Federico II di Svevia e delle piazze annesse.",
+    images: [
+      "buen camin2.jpg",
+      "infrastrutture2.jpg",
+      "buen3.jpg"
+    ]
+  },
+  {
+    title: "Scuola paritaria dell'infanzia P. e M. Sabini",
+    description: "Sistemazione del cortile di una scuola dell'infanzia",
+    images: [
+      "parco.jpg",
+      "parco2.jpg",
+      "parco3.jpg"
+    ]
+  },
+  {
+    title: "Via del Buon Cammino - Altamura",
+    description: "Sistemazione delle sottostrutture  via del buon cammmino",
     images: [
       "buen camin.jpeg",
-      "buen camin2.jpeg",
-      "buen camin3.jpeg"
-    ]
-  },
-  {
-    title: "Ristrutturazione edificio",
-    description: "Organizzazione logistica e sicurezza per lavori di ristrutturazione.",
-    images: [
-      "zal.jpeg",
-      "zal2.jpeg",
-      "zal3.jpeg"
-    ]
-  },
-  {
-    title: "Nuova costruzione",
-    description: "Predisposizione strutture provvisorie e impianti di cantiere.",
-    images: [
       "katsu.jpeg",
-      "katsu2.jpeg",
-      "katsu3.jpeg"
+      "zal.jpeg"
     ]
   }
 ];
@@ -1115,35 +1211,63 @@ window.addEventListener('load', () => {
 let statsStarted = false;
 
 function startStatsIfVisible() {
+
   if (statsStarted) return;
 
   const section = document.querySelector('.stats-band');
-  if (!section) return;
-
   const rect = section.getBoundingClientRect();
 
-  // quando ARRIVA davvero nella viewport
   if (rect.top < window.innerHeight * 0.75) {
+
     statsStarted = true;
 
+    /* ANNI DI ESPERIENZA */
     document.querySelectorAll('.stat .value').forEach(el => {
+
       const target = +el.dataset.target;
       let current = 0;
       const step = target / 60;
 
       const timer = setInterval(() => {
+
         current += step;
+
         if (current >= target) {
-          el.textContent =
-            target +
-            (target === 120 ? '+' : target === 98 ? '%' : '');
+          el.textContent = target + "+";
           clearInterval(timer);
         } else {
           el.textContent = Math.floor(current);
         }
+
       }, 25);
+
     });
 
+    /* ANIMAZIONE SOA */
+    const letters = document.querySelectorAll('.soa-letter');
+
+    letters.forEach((letter, i) => {
+      setTimeout(() => {
+        letter.classList.add('visible');
+      }, i * 120);
+    });
+
+    /* ANIMAZIONE AREA */
+    const area = document.querySelector('.area-holder');
+
+    if (area) {
+      setTimeout(() => {
+        area.classList.add('active');
+      }, 300);
+    }
+
+    window.removeEventListener('scroll', startStatsIfVisible);
+
+  }
+}
+
+window.addEventListener('scroll', startStatsIfVisible);
+window.addEventListener('load', startStatsIfVisible);
     window.removeEventListener('scroll', startStatsIfVisible);
   }
 }
@@ -1151,10 +1275,40 @@ function startStatsIfVisible() {
 // trigger reale
 window.addEventListener('scroll', startStatsIfVisible);
 
-// fallback: nel caso raro sia già visibile
-window.addEventListener('load', startStatsIfVisible);
 </script>
+<script>
+const soaSection = document.querySelector('.soa-stat');
 
+const soaObserver = new IntersectionObserver(entries => {
+
+  entries.forEach(entry => {
+
+    if(entry.isIntersecting){
+
+      const letters = document.querySelectorAll('.soa-letter');
+
+      letters.forEach((letter,i)=>{
+
+        setTimeout(()=>{
+
+          letter.classList.add('visible');
+
+        }, i*150);
+
+      });
+
+      soaObserver.unobserve(entry.target);
+
+    }
+
+  });
+
+},{ threshold:0.4 });
+
+if(soaSection){
+  soaObserver.observe(soaSection);
+}
+</script>
 </body>
 </html>
 
